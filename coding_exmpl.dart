@@ -54,6 +54,18 @@ bool checkParentheses(String text) {
   return stack.isEmpty;
 }
 
+void printInReverse<E>(List<E> list) {
+  var stack = Stack<E>();
+
+  for (E value in list) {
+    stack.push(value);
+  }
+
+  while (stack.isNotEmpty) {
+    print(stack.pop());
+  }
+}
+
 void main() {
   var start = DateTime.now();
   var sum = sumFromOneTo(10000000);
@@ -87,4 +99,8 @@ void main() {
   print(checkParentheses('h((e))llo(world)()'));
   print(checkParentheses('(hello world'));
   print(checkParentheses('hello)(world'));
+
+  const list_rvrs = ['d', 'r', 'a', 'w', 'e', 'r'];
+  printInReverse(list_rvrs);
+  print(list_rvrs.reversed);
 }
