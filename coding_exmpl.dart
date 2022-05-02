@@ -34,6 +34,26 @@ void compareOs() {
   print(time);
 }
 
+bool checkParentheses(String text) {
+  var stack = Stack<int>();
+
+  final open = '('.codeUnitAt(0);
+  final close = ')'.codeUnitAt(0);
+
+  for (int codeUnit in text.codeUnits) {
+    if (codeUnit == open) {
+      stack.push(codeUnit);
+    } else if (codeUnit == close) {
+      if (stack.isEmpty) {
+        return false;
+      } else {
+        stack.pop();
+      }
+    }
+  }
+  return stack.isEmpty;
+}
+
 void main() {
   var start = DateTime.now();
   var sum = sumFromOneTo(10000000);
@@ -63,4 +83,8 @@ void main() {
   print(smokeStack);
   smokeStack.pop();
   print(smokeStack);
+
+  print(checkParentheses('h((e))llo(world)()'));
+  print(checkParentheses('(hello world'));
+  print(checkParentheses('hello)(world'));
 }

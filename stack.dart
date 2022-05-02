@@ -21,5 +21,3 @@ class Stack<E> {
 
   Stack.of(Iterable<E> elements) : _storage = List<E>.of(elements);
 }
-
-void main() {}
