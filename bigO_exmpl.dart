@@ -1,3 +1,4 @@
+// O(n) - linear
 int sumFromOneTo(int n) {
   var sum = 0;
   for (var i = 1; i <= n; i++) {
@@ -6,17 +7,21 @@ int sumFromOneTo(int n) {
   return sum;
 }
 
+// O(1) - constant time
 int betterSumFromOneTo(int n) {
   return n * (n + 1) ~/ 2;
 }
 
 void main() {
+// O(n) - linear
   var start = DateTime.now();
   var sum = sumFromOneTo(1000000000);
   var end = DateTime.now();
   var time = end.difference(start);
   print(sum);
   print(time);
+
+// O(1) - constant time
   start = DateTime.now();
   sum = betterSumFromOneTo(1000000000);
   end = DateTime.now();
