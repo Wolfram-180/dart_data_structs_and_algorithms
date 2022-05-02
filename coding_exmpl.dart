@@ -35,6 +35,20 @@ void compareOs() {
 }
 
 void main() {
+  var start = DateTime.now();
+  var sum = sumFromOneTo(10000000);
+  var end = DateTime.now();
+  var time = end.difference(start);
+  print(sum);
+  print(time);
+
+  start = DateTime.now();
+  sum = betterSumFromOneTo(1000000);
+  end = DateTime.now();
+  time = end.difference(start);
+  print(sum);
+  print(time);
+
   final stack = Stack<int>();
   stack.push(1);
   stack.push(2);
@@ -43,4 +57,10 @@ void main() {
   print(stack);
   final element = stack.pop();
   print('Popped: $element');
+
+  const list = ['S', 'M', 'O', 'K', 'E'];
+  final smokeStack = Stack.of(list);
+  print(smokeStack);
+  smokeStack.pop();
+  print(smokeStack);
 }
