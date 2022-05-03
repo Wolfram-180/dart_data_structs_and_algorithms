@@ -24,4 +24,23 @@ class LinkedList<E> {
     head = Node(value: value, next: head);
     tail ??= head;
   }
+
+  void append(E value) {
+    if (isEmpty) {
+      push(value);
+      return;
+    }
+    tail!.next = Node(value: value);
+    tail = tail!.next;
+  }
+
+  Node<E>? nodeAt(int index) {
+    var currentNode = head;
+    var currentIndex = 0;
+    while (currentNode != null && currentIndex < index) {
+      currentNode = currentNode.next;
+      currentIndex += 1;
+    }
+    return currentNode;
+  }
 }
