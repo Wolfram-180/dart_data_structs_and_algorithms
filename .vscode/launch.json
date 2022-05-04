@@ -8,7 +8,7 @@
             "name": "Dart & Flutter",
             "request": "launch",
             "type": "dart",
-            "program": "linked_list/main.dart"
+            "program": "queues/main.dart"
         }
     ]
 }
