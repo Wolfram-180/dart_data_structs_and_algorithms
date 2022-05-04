@@ -1,3 +1,3 @@
-import 'queues.dart';
+import 'queue.dart';
 
 void main() {}
