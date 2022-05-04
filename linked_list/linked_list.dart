@@ -13,6 +13,7 @@ class Node<T> {
 class LinkedList<E> extends Iterable<E> {
   Node<E>? head;
   Node<E>? tail;
+
   @override
   String toString() {
     if (isEmpty) return 'Empty list';
@@ -23,8 +24,7 @@ class LinkedList<E> extends Iterable<E> {
   bool get isEmpty => head == null;
 
   @override
-// TODO: implement iterator
-  Iterator<E> get iterator => throw UnimplementedError();
+  Iterator<E> get iterator => _LinkedListIterator(this);
 
   void push(E value) {
     head = Node(value: value, next: head);
@@ -87,5 +87,29 @@ class LinkedList<E> extends Iterable<E> {
     }
     node.next = node.next?.next;
     return value;
+  }
+}
+
+class _LinkedListIterator<E> implements Iterator<E> {
+  _LinkedListIterator(LinkedList<E> list) : _list = list;
+  final LinkedList<E> _list;
+
+  Node<E>? _currentNode;
+
+  @override
+  E get current => _currentNode!.value;
+
+  bool _firstPass = true;
+
+  @override
+  bool moveNext() {
+    if (_list.isEmpty) return false;
+    if (_firstPass) {
+      _currentNode = _list.head;
+      _firstPass = false;
+    } else {
+      _currentNode = _currentNode?.next;
+    }
+    return _currentNode != null;
   }
 }
