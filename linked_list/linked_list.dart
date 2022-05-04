@@ -10,15 +10,21 @@ class Node<T> {
   }
 }
 
-class LinkedList<E> {
+class LinkedList<E> extends Iterable<E> {
   Node<E>? head;
   Node<E>? tail;
-  bool get isEmpty => head == null;
   @override
   String toString() {
     if (isEmpty) return 'Empty list';
     return head.toString();
   }
+
+  @override
+  bool get isEmpty => head == null;
+
+  @override
+// TODO: implement iterator
+  Iterator<E> get iterator => throw UnimplementedError();
 
   void push(E value) {
     head = Node(value: value, next: head);
@@ -42,5 +48,44 @@ class LinkedList<E> {
       currentIndex += 1;
     }
     return currentNode;
+  }
+
+  Node<E> insertAfter(Node<E> node, E value) {
+    if (tail == node) {
+      append(value);
+      return tail!;
+    }
+    node.next = Node(value: value, next: node.next);
+    return node.next!;
+  }
+
+  E? pop() {
+    final value = head?.value;
+    head = head?.next;
+    if (isEmpty) {
+      tail = null;
+    }
+    return value;
+  }
+
+  E? removeLast() {
+    if (head?.next == null) return pop();
+    var current = head;
+    while (current!.next != tail) {
+      current = current.next;
+    }
+    final value = tail?.value;
+    tail = current;
+    tail?.next = null;
+    return value;
+  }
+
+  E? removeAfter(Node<E> node) {
+    final value = node.next?.value;
+    if (node.next == tail) {
+      tail = node;
+    }
+    node.next = node.next?.next;
+    return value;
   }
 }
