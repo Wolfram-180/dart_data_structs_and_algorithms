@@ -9,14 +9,20 @@ class QueueList<E> implements Queue<E> {
   final _list = <E>[];
 
   @override
-  bool enqueue(E element) => throw UnimplementedError();
+  bool enqueue(E element) {
+    _list.add(element);
+    return true;
+  }
 
   @override
-  E? dequeue() => throw UnimplementedError();
+  E? dequeue() => (isEmpty) ? null : _list.removeAt(0);
 
   @override
   bool get isEmpty => _list.isEmpty;
 
   @override
   E? get peek => (isEmpty) ? null : _list.first;
+
+  @override
+  String toString() => _list.toString();
 }
