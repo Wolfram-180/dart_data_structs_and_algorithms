@@ -1,13 +1,14 @@
 import 'queue.dart';
 
 void main() {
-  final queue = QueueList<String>();
+  final queue = QueueLinkedList<String>();
   queue.enqueue('Ray');
   queue.enqueue('Brian');
   queue.enqueue('Eric');
-  print(queue);
+  print(queue); // [Ray, Brian, Eric]
   queue.dequeue();
-  print(queue);
-  queue.peek;
-  print(queue);
+  print(queue); // [Brian, Eric]
+  var name = queue.peek;
+  print(name);
+  print(queue); // [Brian, Eric]
 }
