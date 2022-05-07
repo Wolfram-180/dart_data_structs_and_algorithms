@@ -31,5 +31,5 @@ TreeNode<String> makeBeverageTree() {
 
 void main() {
   final tree = makeBeverageTree();
-  tree.forEachDepthFirst((node) => print(node.value));
+  tree.forEachLevelOrder((node) => print(node.value));
 }
