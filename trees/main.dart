@@ -1,7 +1,15 @@
 import 'tree.dart';
 import 'binary_node.dart';
+import 'binary_search_tree.dart';
 
 void main() {
+  final tree = BinarySearchTree<int>();
+  for (var i = 0; i < 5; i++) {
+    tree.insert(i);
+  }
+  print(tree);
+
+  /***
   final tree1 = createBinaryTree_1();
   tree1.traverseInOrder(print);
   sprt();
@@ -15,6 +23,7 @@ void main() {
   final list = serialize(tree2);
   final newTree = deserializeHelper(list);
   print(newTree);
+  ***/
 }
 
 extension Serializable<T> on BinaryNode<T> {
