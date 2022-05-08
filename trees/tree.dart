@@ -27,4 +27,14 @@ class TreeNode<T> {
       node = queue.dequeue();
     }
   }
+
+  TreeNode? search(T value) {
+    TreeNode? result;
+    forEachLevelOrder((node) {
+      if (node.value == value) {
+        result = node;
+      }
+    });
+    return result;
+  }
 }
