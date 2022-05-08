@@ -83,6 +83,8 @@ class QueueStack<E> implements Queue<E> {
   final _leftStack = <E>[];
   final _rightStack = <E>[];
 
+  int get length => _leftStack.length + _rightStack.length;
+
   @override
   bool enqueue(E element) {
     _rightStack.add(element);

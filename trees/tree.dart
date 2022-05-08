@@ -37,4 +37,45 @@ class TreeNode<T> {
     });
     return result;
   }
+
+  void printEachLevel<T>(TreeNode<T> tree) {
+    final result = StringBuffer();
+
+    var queue = QueueStack<TreeNode<T>>();
+    var nodesLeftInCurrentLevel = 0;
+    queue.enqueue(tree);
+
+    while (!queue.isEmpty) {
+      nodesLeftInCurrentLevel = queue.length;
+      while (nodesLeftInCurrentLevel > 0) {
+        final node = queue.dequeue();
+        if (node == null) break;
+        result.write('${node.value} ');
+        for (var element in node.children) {
+          queue.enqueue(element);
+        }
+        nodesLeftInCurrentLevel -= 1;
+      }
+      result.write('\n');
+    }
+    print(result);
+  }
+}
+
+class Widget {}
+
+class Column extends Widget {
+  Column({this.children});
+  List<Widget>? children;
+}
+
+class Padding extends Widget {
+  Padding({this.value = 0.0, this.child});
+  double value;
+  Widget? child;
+}
+
+class Text extends Widget {
+  Text([this.value = '']);
+  String value;
 }

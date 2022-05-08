@@ -31,8 +31,33 @@ TreeNode<String> makeBeverageTree() {
 
 void main() {
   final tree = makeBeverageTree();
+
   final searchResult1 = tree.search('ginger ale');
   print(searchResult1?.value); // ginger ale
   final searchResult2 = tree.search('water');
   print(searchResult2?.value); // null
+
+  print("======"); // separator
+
+  tree.printEachLevel(tree);
+
+  final components_tree = Column(
+    children: [
+      Padding(
+        value: 8.0,
+        child: Text('This'),
+      ),
+      Padding(
+        value: 8.0,
+        child: Text('is'),
+      ),
+      Column(
+        children: [
+          Text('my'),
+          Text('widget'),
+          Text('tree!'),
+        ],
+      ),
+    ],
+  );
 }
