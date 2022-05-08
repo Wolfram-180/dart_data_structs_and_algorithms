@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class BinaryNode<T> {
   BinaryNode(this.value);
   T value;
@@ -35,5 +37,32 @@ class BinaryNode<T> {
       '$bottom ',
     );
     return '$a$b$c';
+  }
+
+  void traverseInOrder(void Function(T value) action) {
+    leftChild?.traverseInOrder(action);
+    action(value);
+    rightChild?.traverseInOrder(action);
+  }
+
+  void traversePreOrder(void Function(T value) action) {
+    action(value);
+    leftChild?.traversePreOrder(action);
+    rightChild?.traversePreOrder(action);
+  }
+
+  void traversePostOrder(void Function(T value) action) {
+    leftChild?.traversePostOrder(action);
+    rightChild?.traversePostOrder(action);
+    action(value);
+  }
+
+  int height(BinaryNode? node) {
+    if (node == null) return -1;
+    return 1 +
+        max(
+          height(node.leftChild),
+          height(node.rightChild),
+        );
   }
 }
