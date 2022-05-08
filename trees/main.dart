@@ -1,4 +1,5 @@
 import 'tree.dart';
+import 'binary_node.dart';
 
 TreeNode<String> makeBeverageTree() {
   final tree = TreeNode('beverages');
