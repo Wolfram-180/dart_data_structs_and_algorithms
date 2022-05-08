@@ -23,4 +23,38 @@ class BinarySearchTree<E extends Comparable<dynamic>> {
 
     return node;
   }
+
+  bool contains(E value) {
+    var current = root;
+    while (current != null) {
+      if (current.value == value) {
+        return true;
+      }
+      if (value.compareTo(current.value) < 0) {
+        current = current.leftChild;
+      } else {
+        current = current.rightChild;
+      }
+    }
+    return false;
+  }
+
+  void remove(E value) {
+    root = _remove(root, value);
+  }
+
+  BinaryNode<E>? _remove(BinaryNode<E>? node, E value) {
+    if (node == null) return null;
+    if (value == node.value) {
+    } else if (value.compareTo(node.value) < 0) {
+      node.leftChild = _remove(node.leftChild, value);
+    } else {
+      node.rightChild = _remove(node.rightChild, value);
+    }
+    return node;
+  }
+}
+
+extension _MinFinder<E> on BinaryNode<E> {
+  BinaryNode<E> get min => leftChild?.min ?? this;
 }
