@@ -3,11 +3,12 @@ import 'binary_node.dart';
 import 'binary_search_tree.dart';
 
 void main() {
-  final tree = BinarySearchTree<int>();
-  for (var i = 0; i < 5; i++) {
-    tree.insert(i);
+  final tree = buildExampleTree();
+  if (tree.contains(5)) {
+    print("Found 5!");
+  } else {
+    print("Couldn’t find 5");
   }
-  print(tree);
 
   /***
   final tree1 = createBinaryTree_1();
@@ -24,6 +25,17 @@ void main() {
   final newTree = deserializeHelper(list);
   print(newTree);
   ***/
+}
+
+BinarySearchTree<int> buildExampleTree() {
+  var tree = BinarySearchTree<int>();
+  tree.insert(3);
+  tree.insert(1);
+  tree.insert(4);
+  tree.insert(0);
+  tree.insert(2);
+  tree.insert(5);
+  return tree;
 }
 
 extension Serializable<T> on BinaryNode<T> {
