@@ -3,6 +3,11 @@ class AvlNode<T> {
   T value;
   AvlNode<T>? leftChild;
   AvlNode<T>? rightChild;
+  int height = 0;
+
+  int get balanceFactor => leftHeight - rightHeight;
+  int get leftHeight => leftChild?.height ?? -1;
+  int get rightHeight => rightChild?.height ?? -1;
 
   void traverseInOrder(void Function(T value) action) {
     leftChild?.traverseInOrder(action);
