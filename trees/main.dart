@@ -4,11 +4,11 @@ import 'binary_search_tree.dart';
 
 void main() {
   final tree = buildExampleTree();
-  if (tree.contains(5)) {
-    print("Found 5!");
-  } else {
-    print("Couldn’t find 5");
-  }
+  print('Tree before removal:');
+  print(tree);
+  tree.remove(3);
+  print('Tree after removing root:');
+  print(tree);
 
   /***
   final tree1 = createBinaryTree_1();
