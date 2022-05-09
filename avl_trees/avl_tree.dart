@@ -1,6 +1,3 @@
-// Copyright (c) 2022 Razeware LLC
-// For full license & permission details, see LICENSE.
-
 import 'avl_node.dart';
 
 class AvlTree<E extends Comparable<dynamic>> {
