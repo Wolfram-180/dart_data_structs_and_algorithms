@@ -3,14 +3,32 @@ import 'binary_node.dart';
 import 'binary_search_tree.dart';
 
 void main() {
-  final tree = buildExampleTree();
+  ///* containsSubtree
+  final tree1 = binarySearchTree_1();
+  final tree2 = binarySearchTree_2();
+  print(tree1.containsSubtree(tree2));
+  //*/
+
+  /* treesEqual
+  final tree1 = binarySearchTree_1();
+  final tree2 = binarySearchTree_2();
+  print(treesEqual(tree1, tree2));
+  */
+
+  /* isBinarySearchTree
+  final tree = createBinaryTree_2();
+  print(tree.isBinarySearchTree());
+  */
+
+  /* node remove
   print('Tree before removal:');
   print(tree);
   tree.remove(3);
   print('Tree after removing root:');
   print(tree);
+  */
 
-  /***
+  /*
   final tree1 = createBinaryTree_1();
   tree1.traverseInOrder(print);
   sprt();
@@ -24,7 +42,36 @@ void main() {
   final list = serialize(tree2);
   final newTree = deserializeHelper(list);
   print(newTree);
-  ***/
+  */
+}
+
+extension Subtree<E> on BinarySearchTree {
+  bool containsSubtree(BinarySearchTree subtree) {
+    Set set = <E>{};
+    root?.traverseInOrder((value) {
+      set.add(value);
+    });
+
+    var isEqual = true;
+
+    subtree.root?.traverseInOrder((value) {
+      isEqual = isEqual && set.contains(value);
+    });
+    return isEqual;
+  }
+}
+
+bool treesEqual(BinarySearchTree first, BinarySearchTree second) {
+  return _isEqual(first.root, second.root);
+}
+
+bool _isEqual(BinaryNode? first, BinaryNode? second) {
+  if (first == null || second == null) {
+    return first == null && second == null;
+  }
+  return first.value == second.value &&
+      _isEqual(first.leftChild, second.leftChild) &&
+      _isEqual(first.rightChild, second.rightChild);
 }
 
 BinarySearchTree<int> buildExampleTree() {
@@ -35,6 +82,32 @@ BinarySearchTree<int> buildExampleTree() {
   tree.insert(0);
   tree.insert(2);
   tree.insert(5);
+  return tree;
+}
+
+BinarySearchTree<int> binarySearchTree_1() {
+  var tree = BinarySearchTree<int>();
+  tree.insert(3);
+  tree.insert(1);
+  tree.insert(4);
+  tree.insert(0);
+  tree.insert(2);
+  tree.insert(5);
+  return tree;
+}
+
+BinarySearchTree<int> binarySearchTree_2() {
+  //var tree = binarySearchTree_1();
+
+  var tree = BinarySearchTree<int>();
+  tree.insert(3);
+  tree.insert(2);
+  tree.insert(1);
+  tree.insert(0);
+  tree.insert(4);
+  tree.insert(5);
+  //tree.insert(6);
+
   return tree;
 }
 
@@ -169,4 +242,23 @@ TreeNode<String> makeBeverageTree() {
 
 void sprt() {
   print("=== separator ===");
+}
+
+extension Checker<E extends Comparable<dynamic>> on BinaryNode<E> {
+  bool isBinarySearchTree() {
+    return _isBST(this, min: null, max: null);
+  }
+
+  bool _isBST(BinaryNode<E>? tree, {E? min, E? max}) {
+    if (tree == null) return true;
+
+    if (min != null && tree.value.compareTo(min) < 0) {
+      return false;
+    } else if (max != null && tree.value.compareTo(max) >= 0) {
+      return false;
+    }
+
+    return _isBST(tree.leftChild, min: min, max: tree.value) &&
+        _isBST(tree.rightChild, min: tree.value, max: max);
+  }
 }
