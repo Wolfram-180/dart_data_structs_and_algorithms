@@ -97,6 +97,22 @@ class AvlTree<E extends Comparable<dynamic>> {
         );
     return pivot;
   }
+
+  AvlNode<E> rightLeftRotate(AvlNode<E> node) {
+    if (node.rightChild == null) {
+      return node;
+    }
+    node.rightChild = rightRotate(node.rightChild!);
+    return leftRotate(node);
+  }
+
+  AvlNode<E> leftRightRotate(AvlNode<E> node) {
+    if (node.leftChild == null) {
+      return node;
+    }
+    node.leftChild = leftRotate(node.leftChild!);
+    return rightRotate(node);
+  }
 }
 
 extension _MinFinder<E> on AvlNode<E> {
