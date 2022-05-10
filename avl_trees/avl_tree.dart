@@ -1,4 +1,5 @@
 import 'avl_node.dart';
+import 'dart:math' as math;
 
 class AvlTree<E extends Comparable<dynamic>> {
   AvlNode<E>? root;
@@ -62,6 +63,40 @@ class AvlTree<E extends Comparable<dynamic>> {
 
   @override
   String toString() => root.toString();
+
+  AvlNode<E> leftRotate(AvlNode<E> node) {
+    final pivot = node.rightChild!;
+    node.rightChild = pivot.leftChild;
+    pivot.leftChild = node;
+    node.height = 1 +
+        math.max(
+          node.leftHeight,
+          node.rightHeight,
+        );
+    pivot.height = 1 +
+        math.max(
+          pivot.leftHeight,
+          pivot.rightHeight,
+        );
+    return pivot;
+  }
+
+  AvlNode<E> rightRotate(AvlNode<E> node) {
+    final pivot = node.leftChild!;
+    node.leftChild = pivot.rightChild;
+    pivot.rightChild = node;
+    node.height = 1 +
+        math.max(
+          node.leftHeight,
+          node.rightHeight,
+        );
+    pivot.height = 1 +
+        math.max(
+          pivot.leftHeight,
+          pivot.rightHeight,
+        );
+    return pivot;
+  }
 }
 
 extension _MinFinder<E> on AvlNode<E> {
