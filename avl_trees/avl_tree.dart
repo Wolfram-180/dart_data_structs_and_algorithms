@@ -4,6 +4,14 @@ import 'dart:math' as math;
 class AvlTree<E extends Comparable<dynamic>> {
   AvlNode<E>? root;
 
+  int leafNodes(int height) {
+    return math.pow(2, height).toInt();
+  }
+
+  int nodes(int height) {
+    return math.pow(2, height + 1).toInt() - 1;
+  }
+
   void insert(E value) {
     root = _insertAt(root, value);
   }
@@ -17,7 +25,13 @@ class AvlTree<E extends Comparable<dynamic>> {
     } else {
       node.rightChild = _insertAt(node.rightChild, value);
     }
-    return node;
+    final balancedNode = balanced(node);
+    balancedNode.height = 1 +
+        math.max(
+          balancedNode.leftHeight,
+          balancedNode.rightHeight,
+        );
+    return balancedNode;
   }
 
   void remove(E value) {
@@ -43,7 +57,13 @@ class AvlTree<E extends Comparable<dynamic>> {
     } else {
       node.rightChild = _remove(node.rightChild, value);
     }
-    return node;
+    final balancedNode = balanced(node);
+    balancedNode.height = 1 +
+        math.max(
+          balancedNode.leftHeight,
+          balancedNode.rightHeight,
+        );
+    return balancedNode;
   }
 
   bool contains(E value) {
@@ -112,6 +132,27 @@ class AvlTree<E extends Comparable<dynamic>> {
     }
     node.leftChild = leftRotate(node.leftChild!);
     return rightRotate(node);
+  }
+
+  AvlNode<E> balanced(AvlNode<E> node) {
+    switch (node.balanceFactor) {
+      case 2:
+        final left = node.leftChild;
+        if (left != null && left.balanceFactor == -1) {
+          return leftRightRotate(node);
+        } else {
+          return rightRotate(node);
+        }
+      case -2:
+        final right = node.rightChild;
+        if (right != null && right.balanceFactor == 1) {
+          return rightLeftRotate(node);
+        } else {
+          return leftRotate(node);
+        }
+      default:
+        return node;
+    }
   }
 }
 
