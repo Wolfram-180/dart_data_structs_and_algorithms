@@ -1,5 +1,6 @@
 import 'trie_node.dart';
 import 'string_trie.dart';
+import 'trie.dart';
 
 void main() {
   final trie = StringTrie();
@@ -17,4 +18,13 @@ void main() {
   print('\nCollections starting with "care"');
   final prefixedWithCare = trie.matchPrefix('care');
   print(prefixedWithCare);
+
+  final trie2 = Trie<int, List<int>>();
+  trie2.insert('cut'.codeUnits);
+  trie2.insert('cute'.codeUnits);
+  if (trie2.contains('cute'.codeUnits)) {
+    print('cute is in the trie');
+  }
+  trie2.remove('cut'.codeUnits);
+  assert(!trie2.contains('cut'.codeUnits));
 }

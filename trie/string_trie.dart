@@ -3,6 +3,12 @@ import 'trie_node.dart';
 class StringTrie {
   TrieNode<int> root = TrieNode(key: null, parent: null);
 
+  final Set<String> _allStrings = {};
+  Set<String> get allStrings => _allStrings;
+
+  int get length => _allStrings.length;
+  bool get isEmpty => _allStrings.isEmpty;
+
   void insert(String text) {
     var current = root;
 
@@ -15,6 +21,7 @@ class StringTrie {
     }
 
     current.isTerminating = true;
+    _allStrings.add(text);
   }
 
   bool contains(String text) {
