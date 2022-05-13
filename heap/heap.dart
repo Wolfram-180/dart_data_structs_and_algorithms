@@ -3,7 +3,17 @@ enum Priority { max, min }
 class Heap<E extends Comparable<dynamic>> {
   Heap({List<E>? elements, this.priority = Priority.max}) {
     this.elements = (elements == null) ? [] : elements;
+    _buildHeap();
   }
+
+  void _buildHeap() {
+    if (isEmpty) return;
+    final start = elements.length ~/ 2 - 1;
+    for (var i = start; i >= 0; i--) {
+      _siftDown(i);
+    }
+  }
+
   late final List<E> elements;
   final Priority priority;
 
@@ -63,4 +73,103 @@ class Heap<E extends Comparable<dynamic>> {
 
   @override
   String toString() => elements.toString();
+
+  void _siftDown(int index) {
+    var parent = index;
+    while (true) {
+      final left = _leftChildIndex(parent);
+      final right = _rightChildIndex(parent);
+
+      var chosen = _higherPriority(left, parent);
+      chosen = _higherPriority(right, chosen);
+
+      if (chosen == parent) return;
+
+      _swapValues(parent, chosen);
+      parent = chosen;
+    }
+  }
+
+  E? remove() {
+    if (isEmpty) return null;
+    _swapValues(0, elements.length - 1);
+    final value = elements.removeLast();
+    _siftDown(0);
+    return value;
+  }
+
+  E? removeAt(int index) {
+    final lastIndex = elements.length - 1;
+
+    if (index < 0 || index > lastIndex) {
+      return null;
+    }
+
+    if (index == lastIndex) {
+      return elements.removeLast();
+    }
+
+    _swapValues(index, lastIndex);
+    final value = elements.removeLast();
+
+    _siftDown(index);
+    _siftUp(index);
+    return value;
+  }
+
+  int indexOf(E value, {int index = 0}) {
+    if (index >= elements.length) {
+      return -1;
+    }
+
+    if (_firstHasHigherPriority(value, elements[index])) {
+      return -1;
+    }
+
+    if (value == elements[index]) {
+      return index;
+    }
+
+    final left = indexOf(value, index: _leftChildIndex(index));
+    if (left != -1) return left;
+    return indexOf(value, index: _rightChildIndex(index));
+  }
+
+  int? getNthSmallestElement(int n, List<int> elements) {
+    var heap = Heap(
+      elements: elements,
+      priority: Priority.min,
+    );
+    int? value;
+    for (int i = 0; i < n; i++) {
+      value = heap.remove();
+    }
+    return value;
+  }
+
+  void merge(List<E> list) {
+    elements.addAll(list);
+    _buildHeap();
+  }
+
+  bool isMinHeap<E extends Comparable<dynamic>>(List<E> elements) {
+    if (elements.isEmpty) return true;
+
+    final start = elements.length ~/ 2 - 1;
+    for (var i = start; i >= 0; i--) {
+      final left = 2 * i + 1;
+      final right = 2 * i + 2;
+
+      if (elements[left].compareTo(elements[i]) < 0) {
+        return false;
+      }
+
+      if (right < elements.length &&
+          elements[right].compareTo(elements[i]) < 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
