@@ -4,6 +4,7 @@ import 'insertion_sort.dart';
 import 'merge_sort.dart';
 import 'radix_sort.dart';
 import 'heapsort.dart';
+import 'quicksort.dart';
 
 void main() {
   var list = [9, 4, 10, 3];
@@ -53,8 +54,20 @@ void main() {
   print('heapsorted:');
   print(heapsorted);
 
+  print('');
+  print('NON sorted:');
   list = [6, 12, 2, 26, 8, 18, 21, 9, 5];
   print(list);
+  print('heapsortInPlace:');
   list.heapsortInPlace();
+  print(list);
+
+  print('quicksortNaive:');
+  list = [8, 2, 10, 0, 9, 18, 9, -1, 5];
+  var quicksortNaivesorted = quicksortNaive(list);
+  print(quicksortNaivesorted);
+
+  print('quicksortLomuto:');
+  quicksortLomuto(list, 0, list.length - 1);
   print(list);
 }
