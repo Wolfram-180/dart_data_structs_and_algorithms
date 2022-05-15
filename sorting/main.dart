@@ -3,6 +3,7 @@ import 'selection_sort.dart';
 import 'insertion_sort.dart';
 import 'merge_sort.dart';
 import 'radix_sort.dart';
+import 'heapsort.dart';
 
 void main() {
   var list = [9, 4, 10, 3];
@@ -46,5 +47,14 @@ void main() {
 
   list = [46, 500, 459, 1345, 13, 999];
   list.lexicographicalSort(); // most-significant-digit (MSD)
+  print(list);
+
+  final heapsorted = heapsort([6, 12, 2, 26, 8, 18, 21, 9, 5]);
+  print('heapsorted:');
+  print(heapsorted);
+
+  list = [6, 12, 2, 26, 8, 18, 21, 9, 5];
+  print(list);
+  list.heapsortInPlace();
   print(list);
 }
