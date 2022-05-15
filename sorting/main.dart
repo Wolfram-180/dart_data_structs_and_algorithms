@@ -27,7 +27,7 @@ void main() {
 
   list = [88, 410, 1772, 20];
   print("Original list: $list");
-  list.radixSort(); // LSD
+  list.radixSort(); // least-significant-digit (LSD)
   print("Radix sorted: $list");
 
   print(13.digits()); // 2
@@ -45,6 +45,6 @@ void main() {
   print(list.maxDigits()); // 4
 
   list = [46, 500, 459, 1345, 13, 999];
-  list.lexicographicalSort();
+  list.lexicographicalSort(); // most-significant-digit (MSD)
   print(list);
 }
