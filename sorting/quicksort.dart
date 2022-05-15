@@ -94,3 +94,34 @@ void quicksortHoare<E extends Comparable<dynamic>>(
   quicksortHoare(list, low, leftHigh);
   quicksortHoare(list, leftHigh + 1, high);
 }
+
+int _medianOfThree<T extends Comparable<dynamic>>(
+  List<T> list,
+  int low,
+  int high,
+) {
+  final center = (low + high) ~/ 2;
+  if (list[low].compareTo(list[center]) > 0) {
+    list.swap(low, center);
+  }
+  if (list[low].compareTo(list[high]) > 0) {
+    list.swap(low, high);
+  }
+  if (list[center].compareTo(list[high]) > 0) {
+    list.swap(center, high);
+  }
+  return center;
+}
+
+void quicksortMedian<E extends Comparable<dynamic>>(
+  List<E> list,
+  int low,
+  int high,
+) {
+  if (low >= high) return;
+  var pivotIndex = _medianOfThree(list, low, high);
+  list.swap(pivotIndex, high);
+  pivotIndex = _partitionLomuto(list, low, high);
+  quicksortLomuto(list, low, pivotIndex - 1);
+  quicksortLomuto(list, pivotIndex + 1, high);
+}
