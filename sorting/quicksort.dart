@@ -125,3 +125,46 @@ void quicksortMedian<E extends Comparable<dynamic>>(
   quicksortLomuto(list, low, pivotIndex - 1);
   quicksortLomuto(list, pivotIndex + 1, high);
 }
+
+class Range {
+  const Range(this.low, this.high);
+  final int low;
+  final int high;
+}
+
+Range _partitionDutchFlag<T extends Comparable<dynamic>>(
+  List<T> list,
+  int low,
+  int high,
+) {
+  final pivot = list[high];
+
+  var smaller = low;
+  var equal = low;
+  var larger = high;
+  while (equal <= larger) {
+    if (list[equal].compareTo(pivot) < 0) {
+      list.swap(smaller, equal);
+      smaller += 1;
+      equal += 1;
+    } else if (list[equal] == pivot) {
+      equal += 1;
+    } else {
+      list.swap(equal, larger);
+      larger -= 1;
+    }
+  }
+
+  return Range(smaller, larger);
+}
+
+void quicksortDutchFlag<E extends Comparable<dynamic>>(
+  List<E> list,
+  int low,
+  int high,
+) {
+  if (low >= high) return;
+  final middle = _partitionDutchFlag(list, low, high);
+  quicksortDutchFlag(list, low, middle.low - 1);
+  quicksortDutchFlag(list, middle.high + 1, high);
+}

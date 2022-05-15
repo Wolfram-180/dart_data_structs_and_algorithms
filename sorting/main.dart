@@ -81,4 +81,10 @@ void main() {
   list = [8, 7, 6, 5, 4, 3, 2, 1];
   quicksortMedian(list, 0, list.length - 1);
   print(list);
+
+  print('quicksortDutchFlag:');
+  list = [8, 2, 2, 8, 9, 5, 9, 2, 8];
+  print(list);
+  quicksortDutchFlag(list, 0, list.length - 1);
+  print(list);
 }
