@@ -1,7 +1,7 @@
 import 'graph.dart';
 
 void main() {
-  final graph = AdjacencyList<String>();
+  final graph = AdjacencyMatrix<String>();
   final singapore = graph.createVertex('Singapore');
   final tokyo = graph.createVertex('Tokyo');
   final hongKong = graph.createVertex('Hong Kong');
@@ -23,4 +23,13 @@ void main() {
   graph.addEdge(sanFrancisco, seattle, weight: 218);
   graph.addEdge(austinTexas, sanFrancisco, weight: 297);
   print(graph);
+  final cost = graph.weight(singapore, tokyo)?.toInt();
+  print('It costs \$$cost to fly from Singapore to Tokyo.');
+  // It costs $500 to fly from Singapore to Tokyo.
+
+  print('San Francisco Outgoing Flights: ');
+  print('-------------------------------- ');
+  for (final edge in graph.edges(sanFrancisco)) {
+    print('${edge.source} to ${edge.destination}');
+  }
 }
