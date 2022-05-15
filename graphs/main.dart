@@ -125,4 +125,7 @@ void main() {
   final dijkstra = Dijkstra(graph);
   final allPaths = dijkstra.shortestPaths(a);
   print(allPaths);
+
+  final path = dijkstra.shortestPath(a, d);
+  print(path);
 }

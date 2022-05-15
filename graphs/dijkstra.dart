@@ -54,7 +54,26 @@ class Dijkstra<E> {
         }
       }
     }
-
     return paths;
+  }
+
+  List<Vertex<E>> shortestPath(
+    Vertex<E> source,
+    Vertex<E> destination, {
+    Map<Vertex<E>, Pair<E>?>? paths,
+  }) {
+    final allPaths = paths ?? shortestPaths(source);
+
+    if (!allPaths.containsKey(destination)) return [];
+    var current = destination;
+    final path = <Vertex<E>>[current];
+
+    while (current != source) {
+      final previous = allPaths[current]?.vertex;
+      if (previous == null) return [];
+      path.add(previous);
+      current = previous;
+    }
+    return path.reversed.toList();
   }
 }
