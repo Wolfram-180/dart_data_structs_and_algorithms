@@ -68,6 +68,12 @@ void main() {
   print(quicksortNaivesorted);
 
   print('quicksortLomuto:');
+  list = [8, 2, 10, 0, 9, 18, 9, -1, 5];
   quicksortLomuto(list, 0, list.length - 1);
+  print(list);
+
+  print('quicksortHoare:');
+  list = [8, 2, 10, 0, 9, 18, 9, -1, 5];
+  quicksortHoare(list, 0, list.length - 1);
   print(list);
 }
